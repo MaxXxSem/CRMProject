@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using CRMProject.DAL.Entities;
+using CRMProject.DAL.Identity;
 using CRMProject.DAL.Interfaces;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace CRMProject.DAL.Repositories
 {
@@ -18,6 +20,9 @@ namespace CRMProject.DAL.Repositories
         private IRepository<Task> tasks;
         private IRepository<Transaction> transactions;
         private IRepository<User> users;
+        private IRepository<IdentityUserData> usersData;
+        private IdentityUserManager userManager;
+        private IdentityRoleManager roleManager;
 
         public UnitOfWork()
         {
@@ -101,6 +106,36 @@ namespace CRMProject.DAL.Repositories
                 if (users == null)
                     users = new BaseRepository<User>(db);
                 return users;
+            }
+        }
+
+        public IRepository<IdentityUserData> UsersData
+        {
+            get
+            {
+                if (usersData == null)
+                    usersData = new BaseRepository<IdentityUserData>(db);
+                return usersData;
+            }
+        }
+
+        public IdentityUserManager UserManager
+        {
+            get
+            {
+                if (userManager == null)
+                    userManager = new IdentityUserManager(new IdentityUserStore(db));
+                return userManager;
+            }
+        }
+
+        public IdentityRoleManager RoleManager
+        {
+            get
+            {
+                if (roleManager == null)
+                    roleManager = new IdentityRoleManager(new RoleStore<Role>(db));
+                return roleManager;
             }
         }
 

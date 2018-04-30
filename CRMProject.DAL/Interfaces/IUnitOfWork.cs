@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Linq;
 using CRMProject.DAL.Entities;
+using CRMProject.DAL.Identity;
 
 namespace CRMProject.DAL.Interfaces
 {
     // access to repositories
-    interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         IRepository<Client> Clients { get; }
         IRepository<Comment> Comments { get; }
@@ -15,6 +16,9 @@ namespace CRMProject.DAL.Interfaces
         IRepository<Task> Tasks { get; }
         IRepository<Transaction> Transactions { get; }
         IRepository<User> Users { get; }
+        IRepository<IdentityUserData> UsersData { get; }
+        IdentityUserManager UserManager { get; }
+        IdentityRoleManager RoleManager { get; }
 
         // save changes
         void Save();

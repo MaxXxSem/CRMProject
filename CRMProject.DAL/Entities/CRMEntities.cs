@@ -20,6 +20,7 @@ namespace CRMProject.DAL.Entities
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<IdentityUserData> UserData { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -65,10 +66,6 @@ namespace CRMProject.DAL.Entities
                 .IsFixedLength();
 
             modelBuilder.Entity<User>()
-                .Property(e => e.Password)
-                .IsFixedLength();
-
-            modelBuilder.Entity<User>()
                 .Property(e => e.PhotoPath)
                 .IsFixedLength();
 
@@ -81,6 +78,17 @@ namespace CRMProject.DAL.Entities
                 .HasMany(e => e.Transactions)
                 .WithOptional(e => e.User)
                 .HasForeignKey(e => e.ResponsibleUserId);
+
+            modelBuilder.Entity<User>()
+                .HasRequired(e => e.UserData)
+                .WithOptional()
+                .Map(e => e.MapKey("UserDataId"));
+        }
+
+        // for getting context through OWIN
+        public static CRMEntities Create()
+        {
+            return new CRMEntities();
         }
     }
 }

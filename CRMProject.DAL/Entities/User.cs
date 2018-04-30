@@ -1,5 +1,7 @@
 namespace CRMProject.DAL.Entities
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -16,23 +18,10 @@ namespace CRMProject.DAL.Entities
             Notifications = new HashSet<Notification>();
             Tasks = new HashSet<Task>();
             Transactions = new HashSet<Transaction>();
-            Roles = new HashSet<Role>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
-
-        [Required]
-        [StringLength(64)]
-        public string Email { get; set; }
-
-        [Required]
-        [StringLength(64)]
-        public string Password { get; set; }
-
-        [Required]
-        [StringLength(64)]
-        public string Name { get; set; }
 
         [Column(TypeName = "datetime2")]
         public DateTime DateOfBirth { get; set; }
@@ -55,7 +44,6 @@ namespace CRMProject.DAL.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Role> Roles { get; set; }
+        public virtual IdentityUserData UserData { get; set; }
     }
 }
