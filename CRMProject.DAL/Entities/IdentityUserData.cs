@@ -14,7 +14,8 @@ namespace CRMProject.DAL.Entities
     {
         public IdentityUserData()
         {
-            //Roles = new HashSet<Role>();
+            Id = Guid.NewGuid().ToString();                 // generate new Id
+            Roles = new HashSet<Role>();
         }
 
         [Key]

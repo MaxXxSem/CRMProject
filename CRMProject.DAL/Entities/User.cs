@@ -18,6 +18,7 @@ namespace CRMProject.DAL.Entities
             Notifications = new HashSet<Notification>();
             Tasks = new HashSet<Task>();
             Transactions = new HashSet<Transaction>();
+            HireDate = DateTime.UtcNow;
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
