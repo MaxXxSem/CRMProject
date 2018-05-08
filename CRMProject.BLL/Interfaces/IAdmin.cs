@@ -4,11 +4,19 @@ using CRMProject.BLL.DTO;
 
 namespace CRMProject.BLL.Interfaces
 {
+    // administrator's functions
     public interface IAdmin
     {
+        // all users list
         IEnumerable<UserDTO> GetUsers();
-        void CreateUser(RegistrationDTO userData);
-        void DeleteUser(int userId);
-        void SetUserRole(int userId, string roleName);
+
+        // create new user
+        bool CreateUser(RegistrationDTO userData);
+
+        // delete user
+        bool DeleteUser(int userId);
+
+        // add user to role
+        bool SetUserRole(int userId, string roleName);
     }
 }

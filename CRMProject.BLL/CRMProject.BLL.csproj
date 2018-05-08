@@ -30,7 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,10 +44,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\ClientDTO.cs" />
+    <Compile Include="DTO\ContactDTO.cs" />
+    <Compile Include="DTO\LoginDTO.cs" />
+    <Compile Include="DTO\ManagersReportDTO.cs" />
+    <Compile Include="DTO\NotificationDTO.cs" />
     <Compile Include="DTO\RegistrationDTO.cs" />
+    <Compile Include="DTO\TaskDTO.cs" />
+    <Compile Include="DTO\TransactionDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="Infrastructure\Email.cs" />
+    <Compile Include="Infrastructure\NinjectServiceModule.cs" />
+    <Compile Include="Interfaces\IAccount.cs" />
     <Compile Include="Interfaces\IAdmin.cs" />
+    <Compile Include="Interfaces\IClientService.cs" />
+    <Compile Include="Interfaces\IContactService.cs" />
+    <Compile Include="Interfaces\INotificationsService.cs" />
+    <Compile Include="Interfaces\IReportService.cs" />
+    <Compile Include="Interfaces\ITaskService.cs" />
+    <Compile Include="Interfaces\ITransactionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Account.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CRMProject.DAL\CRMProject.DAL.csproj">
@@ -51,6 +72,9 @@
       <Name>CRMProject.DAL</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
