@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace CRMProject.DAL.Interfaces
 {
@@ -8,27 +9,27 @@ namespace CRMProject.DAL.Interfaces
     public interface IRepository<T> where T : class
     {
         // Get all elements from entity
-        IEnumerable<T> GetAll();
+        Task<IEnumerable<T>> GetAll();
         
         // Find element with certain id
-        T Find(int id);
+        Task<T> Find(int id);
         
         // Get element through predicate
-        IEnumerable<T> Get(Func<T, bool> predicate);
+        Task<IEnumerable<T>> Get(Expression<Func<T, bool>> predicate);
 
         // Create new element
-        void Create(T element);
+        Task Create(T element);
         
         // Update some element
-        void Update(T element);
+        Task Update(T element);
         
         // Delete some element
-        void Delete(T element);
+        Task Delete(T element);
 
         // include some properties
-        IEnumerable<T> Include(params Expression<Func<T, object>>[] includeParams);
+        Task<IEnumerable<T>> Include(params Expression<Func<T, object>>[] includeParams);
 
         // include some properties using predicate
-        IEnumerable<T> Include(Func<T, bool> predicate, params Expression<Func<T, object>>[] includeParams);
+        Task<IEnumerable<T>> Include(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeParams);
     }
 }

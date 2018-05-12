@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CRMProject.BLL.DTO;
+using System.Threading.Tasks;
 
 namespace CRMProject.BLL.Interfaces
 {
@@ -8,15 +9,18 @@ namespace CRMProject.BLL.Interfaces
     public interface IAdmin
     {
         // all users list
-        IEnumerable<UserDTO> GetUsers();
+        Task<IEnumerable<UserDTO>> GetUsers();
 
         // create new user
-        bool CreateUser(RegistrationDTO userData);
+        Task<bool> CreateUser(RegistrationDTO userData);
 
         // delete user
-        bool DeleteUser(int userId);
+        Task<bool> DeleteUser(string identityUserId);
 
         // add user to role
-        bool SetUserRole(int userId, string roleName);
+        Task<bool> SetUserRole(string identityUserId, string roleName);
+
+        // remove user from role
+        Task<bool> RemoveUserRole(string identityUserId, string roleName);
     }
 }

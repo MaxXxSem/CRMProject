@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Tasks = System.Threading.Tasks;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using CRMProject.DAL.Interfaces;
@@ -31,52 +32,55 @@ namespace CRMProject.DAL.Repositories
         }
 
         // add new element
-        public virtual void Create(T element)
+        public virtual Tasks.Task Create(T element)
         {
             dbSet.Add(element);
+            return Tasks.Task.FromResult(0);
         }
 
         // update some element
-        public virtual void Update(T element)
+        public virtual Tasks.Task Update(T element)
         {
             db.Entry(element).State = EntityState.Modified;
+            return Tasks.Task.FromResult(0);
         }
 
         // delete some element
-        public virtual void Delete(T element)
+        public virtual Tasks.Task Delete(T element)
         {
             //dbSet.Remove(element);
             db.Entry(element).State = EntityState.Deleted;
+            return Tasks.Task.FromResult(0);
         }
 
         // find element by id
-        public virtual T Find(int id)
+        public virtual async Tasks.Task<T> Find(int id)
         {
-            return dbSet.Find(id);
+            return await dbSet.FindAsync(id);
         }
 
         // get element using specific predicate
-        public virtual IEnumerable<T> Get(Func<T, bool> predicate)
+        public virtual async Tasks.Task<IEnumerable<T>> Get(Expression<Func<T, bool>> predicate)
         {
-            return dbSet.AsNoTracking().Where(predicate).ToList();
+            return await dbSet.AsNoTracking().Where(predicate).ToListAsync();
         }
 
         // get all items
-        public virtual IEnumerable<T> GetAll()
+        public virtual async Tasks.Task<IEnumerable<T>> GetAll()
         {
-            return dbSet.AsNoTracking().ToList();
+            return await dbSet.AsNoTracking().ToListAsync();
         }
 
         // list of items with included properties
-        public virtual IEnumerable<T> Include(params Expression<Func<T, object>>[] includeParams)
+        public virtual async Tasks.Task<IEnumerable<T>> Include(params Expression<Func<T, object>>[] includeParams)
         {
-            return IncludeProperties(includeParams).ToList();
+            return await IncludeProperties(includeParams).ToListAsync();
         }
 
-        public virtual IEnumerable<T> Include(Func<T, bool> predicate, params Expression<Func<T, object>>[] includeParams)
+        public virtual async Tasks.Task<IEnumerable<T>> Include(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeParams)
         {
-            var query = IncludeProperties(includeParams);
-            return query.Where(predicate).ToList();
+            var query = IncludeProperties(includeParams).Where(predicate);
+            return await query.ToListAsync();
         }
 
         // include specified properties
