@@ -95,6 +95,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\MapperTest.cs" />
     <Compile Include="DAL\RepositoryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
@@ -106,6 +107,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CRMProject.BLL\CRMProject.BLL.csproj">
+      <Project>{2ba5cfde-e51a-4868-ad1f-91074225df67}</Project>
+      <Name>CRMProject.BLL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CRMProject.DAL\CRMProject.DAL.csproj">
       <Project>{1e3440cd-e82d-49b5-ab05-5184c7013c7b}</Project>
       <Name>CRMProject.DAL</Name>
@@ -115,6 +120,7 @@
       <Name>CRMProject</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

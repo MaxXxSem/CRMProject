@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CRMProject.BLL.DTO;
 
 namespace CRMProject.BLL.Interfaces
@@ -8,9 +9,9 @@ namespace CRMProject.BLL.Interfaces
     interface INotificationsService
     {
         // create new notifications
-        bool AddNotification(NotificationDTO notification);
+        Task<bool> AddNotification(NotificationDTO notification);
 
         // get notification
-        NotificationDTO GetNotification(int id);
+        Task<NotificationDTO> GetNotification(int id);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CRMProject.BLL.DTO;
 using CRMProject.BLL.Infrastructure;
 
@@ -9,21 +10,21 @@ namespace CRMProject.BLL.Interfaces
     public interface IContactService
     {
         // add new contact
-        bool AddContact(ContactDTO contact);
+        Task<bool> AddContact(ContactDTO contact);
 
         // delete contact
-        bool DeleteContact(int id);
+        Task<bool> DeleteContact(int id);
 
         // get contact's info
-        ContactDTO GetContactData(int id);
+        Task<ContactDTO> GetContactData(int id);
 
         // update contact's info
-        bool SetContactData(ContactDTO contact);
+        Task<bool> SetContactData(ContactDTO contact);
 
         // get all contacts list
-        IEnumerable<ContactDTO> GetContacts();
+        Task<IEnumerable<ContactDTO>> GetContacts();
 
         // send email to contact
-        bool SendEmail(Email email);
+        Task<bool> SendEmail(Email email);
     }
 }

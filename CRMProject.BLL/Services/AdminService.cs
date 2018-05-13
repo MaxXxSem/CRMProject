@@ -12,7 +12,7 @@ using AutoMapper;
 
 namespace CRMProject.BLL.Services
 {
-    class AdminService : IAdmin
+    public class AdminService : IAdmin
     {
         IUnitOfWork Db { get; set; }
 

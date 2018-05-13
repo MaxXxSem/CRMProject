@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CRMProject.BLL.DTO;
 
 namespace CRMProject.BLL.Interfaces
@@ -8,9 +9,9 @@ namespace CRMProject.BLL.Interfaces
     interface IReportService
     {
         // get report related with managers
-        IEnumerable<ManagersReportDTO> GetManagersReport();
+        Task<IEnumerable<ManagersReportDTO>> GetManagersReport();
 
         // get report related with transactions
-        IEnumerable<TransactionDTO> GetTransactionsReport();
+        Task<IEnumerable<TransactionDTO>> GetTransactionsReport();
     }
 }

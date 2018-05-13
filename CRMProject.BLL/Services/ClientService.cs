@@ -8,10 +8,11 @@ using CRMProject.BLL.DTO;
 using CRMProject.BLL.Infrastructure;
 using CRMProject.DAL.Interfaces;
 using CRMProject.DAL.Entities;
+using AutoMapper;
 
 namespace CRMProject.BLL.Services
 {
-    class ClientService : IClientService
+    public class ClientService : IClientService
     {
         IUnitOfWork Db { get; set; }
 
@@ -52,6 +53,8 @@ namespace CRMProject.BLL.Services
                 if (client != null)
                 {
                     await Db.Clients.Delete(client);
+                    Db.Save();
+                    return true;
                 }
                 else
                 {
@@ -93,29 +96,56 @@ namespace CRMProject.BLL.Services
             }
         }
 
-        public Tasks.Task<IEnumerable<ClientDTO>> GetClients()
+        public async Tasks.Task<IEnumerable<ClientDTO>> GetClients()
         {
-            throw new NotImplementedException();
+            IEnumerable<Client> clients = await Db.Clients.GetAll();
+            Mapper.Initialize(cfg => cfg.CreateMap<Client, ClientDTO>());
+            var clientsDTO = Mapper.Map<IEnumerable<Client>, IEnumerable<ClientDTO>>(clients);
+            return clientsDTO;
         }
 
-        public Tasks.Task<IEnumerable<ContactDTO>> GetContacts(int clientId)
+        public async Tasks.Task<IEnumerable<ContactDTO>> GetContacts(int clientId)
         {
-            throw new NotImplementedException();
+            var contacts = await Db.Contacts.Get(c => c.Client.Id == clientId);
+            Mapper.Initialize(cfg => cfg.CreateMap<Contact, ContactDTO>());
+            var contactsDTO = Mapper.Map<IEnumerable<Contact>, IEnumerable<ContactDTO>>(contacts);
+            return contactsDTO;
+
         }
 
-        public Tasks.Task<IEnumerable<TransactionDTO>> GetTransactions(int clientId)
+        public async Tasks.Task<IEnumerable<TransactionDTO>> GetTransactions(int clientId)
         {
-            throw new NotImplementedException();
+            var transactions = await Db.Transactions.Get(t => t.Client.Id == clientId);
+            Mapper.Initialize(cfg => cfg.CreateMap<Transaction, TransactionDTO>());
+            var transactionsDTO = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionDTO>>(transactions);
+            return transactionsDTO;
         }
 
+        // TODO
         public Tasks.Task<bool> SendEmail(Email email)
         {
             throw new NotImplementedException();
         }
 
-        public Tasks.Task<bool> SetClientData(ClientDTO client)
+        public async Tasks.Task<bool> SetClientData(ClientDTO client)
         {
-            throw new NotImplementedException();
+            if (client == null)
+            {
+                var clientEntity = await Db.Clients.Find(client.Id);
+                clientEntity.Name = client.Name ?? clientEntity.Name;
+                clientEntity.Email = client.Email ?? clientEntity.Email;
+                clientEntity.PhoneNumber = client.PhoneNumber ?? clientEntity.PhoneNumber;
+                clientEntity.Address = client.Address ?? clientEntity.Address;
+                clientEntity.Site = client.Site ?? clientEntity.Site;
+                clientEntity.Description = client.Description ?? clientEntity.Description;
+                await Db.Clients.Update(clientEntity);
+                Db.Save();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

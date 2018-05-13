@@ -9,7 +9,7 @@ namespace CRMProject.BLL.DTO
     // Contains user and user's transactions
     public class ManagersReportDTO
     {
-        public UserDTO user { get; set; }
-        public IEnumerable<TransactionDTO> transactions { get; set; }
+        public UserDTO User { get; set; }
+        public IEnumerable<TransactionDTO> Transactions { get; set; }
     }
 }
