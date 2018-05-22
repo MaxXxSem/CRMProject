@@ -13,6 +13,7 @@ namespace CRMProject.DAL.Entities
         public Transaction()
         {
             Contacts = new HashSet<Contact>();
+            Date = DateTime.Now;
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -24,6 +25,9 @@ namespace CRMProject.DAL.Entities
 
         [Column(TypeName = "money")]
         public decimal Sum { get; set; }
+
+        [Required]
+        public DateTime Date { get; set; }
 
         public int? ResponsibleUserId { get; set; }
 

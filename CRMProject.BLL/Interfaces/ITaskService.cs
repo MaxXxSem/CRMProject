@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CRMProject.BLL.DTO;
 
 namespace CRMProject.BLL.Interfaces
@@ -8,21 +9,24 @@ namespace CRMProject.BLL.Interfaces
     interface ITaskService
     {
         // get all tasks list
-        IEnumerable<TaskDTO> GetTasks();
+        Task<IEnumerable<TaskDTO>> GetUsersTasks(string userId);
 
         // create new task
-        bool AddTask(TaskDTO task);
+        Task<bool> AddTask(TaskDTO task);
 
         // get task info
-        TaskDTO GetTaskData(int id);
+        Task<TaskDTO> GetTaskData(int id);
 
         // update task info
-        bool SetTaskData(TaskDTO task);
+        Task<bool> SetTaskData(TaskDTO task);
 
         // get expiration
-        DateTime GetExpiration(int id);
+        Task<DateTime> GetExpiration(int id);
 
         // close task
-        bool CloseTask(int id);
+        Task<bool> CloseTask(int id);
+
+        // add comment
+        Task<bool> AddComment(int taskId, int typeId, string commentText, int userId);
     }
 }

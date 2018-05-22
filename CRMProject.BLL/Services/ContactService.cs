@@ -59,11 +59,15 @@ namespace CRMProject.BLL.Services
             }
         }
 
+        // TODO: Comments
         public async Tasks.Task<ContactDTO> GetContactData(int id)
         {
             var contact = await Db.Contacts.Find(id);
             if (contact != null)
             {
+                var comments = await Db.Comments.Get(c => c.TypeId == contact.TypeId && c.CommentedEntityId == contact.Id);
+                Mapper.Initialize(cfg => cfg.CreateMap<Comment, CommentDTO>());
+
                 ContactDTO contactDTO = new ContactDTO()
                 {
                     Id = contact.Id,
@@ -72,7 +76,8 @@ namespace CRMProject.BLL.Services
                     Desctiption = contact.Description,
                     PhoneNumber = contact.PhoneNumber,
                     ClientId = contact.ClientId,
-                    TransactionId = contact.TransactionId
+                    TransactionId = contact.TransactionId,
+                    Comments = Mapper.Map<IEnumerable<Comment>, IEnumerable<CommentDTO>>(comments)
                 };
                 return contactDTO;
             }
@@ -84,35 +89,27 @@ namespace CRMProject.BLL.Services
 
         public async Tasks.Task<bool> SetContactData(ContactDTO contact)
         {
-            if (contact == null)
-            {
-                return false;
-            }
-            else
+            if (contact != null)
             {
                 Contact cont = await Db.Contacts.Find(contact.Id);
 
-                cont.Name = contact.Name ?? cont.Name;
-                cont.Email = contact.Email ?? cont.Email;
-                cont.PhoneNumber = contact.PhoneNumber ?? cont.PhoneNumber;
-                cont.Description = contact.Desctiption ?? cont.Description;
-
-                if (contact.ClientId.HasValue)
+                if (cont != null)
                 {
-                    cont.Client = await Db.Clients.Find(contact.ClientId.Value);
-                }
+                    cont.Name = contact.Name;
+                    cont.Email = contact.Email;
+                    cont.PhoneNumber = contact.PhoneNumber;
+                    cont.Description = contact.Desctiption;
 
-                if (contact.TransactionId.HasValue)
-                {
-                    cont.Transaction = await Db.Transactions.Find(contact.TransactionId.Value);
+                    await Db.Contacts.Update(cont);
+                    Db.Save();
+                    return true;
                 }
-
-                await Db.Contacts.Update(cont);
-                Db.Save();
-                return true;
             }
+
+            return false;
         }
 
+        // TODO: Comments
         public async Tasks.Task<IEnumerable<ContactDTO>> GetContacts()
         {
             var contacts = await Db.Contacts.GetAll();
@@ -125,6 +122,33 @@ namespace CRMProject.BLL.Services
         public Tasks.Task<bool> SendEmail(Email email)
         {
             throw new NotImplementedException();
+        }
+
+        public async Tasks.Task<bool> AddComment(int contactId, int typeId, string commentText, int userId)
+        {
+            if (string.IsNullOrEmpty(commentText))
+            {
+                return false;
+            }
+
+            try
+            {
+                Comment comment = new Comment()
+                {
+                    Text = commentText,
+                    CommentedEntityId = contactId,
+                    TypeId = typeId,
+                    User = await Db.Users.Find(userId)
+                };
+
+                await Db.Comments.Create(comment);
+                Db.Save();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

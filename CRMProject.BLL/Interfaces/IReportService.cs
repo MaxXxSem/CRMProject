@@ -12,6 +12,6 @@ namespace CRMProject.BLL.Interfaces
         Task<IEnumerable<ManagersReportDTO>> GetManagersReport();
 
         // get report related with transactions
-        Task<IEnumerable<TransactionDTO>> GetTransactionsReport();
+        Task<IEnumerable<TransactionsReportDTO>> GetTransactionsReport();
     }
 }

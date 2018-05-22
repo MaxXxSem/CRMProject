@@ -67,6 +67,7 @@ namespace CRMProject.BLL.Services
             }
         }
 
+        // TODO: Comments
         public async Tasks.Task<ClientDTO> GetClientData(int id)
         {
             try
@@ -74,6 +75,9 @@ namespace CRMProject.BLL.Services
                 var client = await Db.Clients.Find(id);
                 if (client != null)
                 {
+                    var comments = await Db.Comments.Get(c => c.TypeId == client.TypeId && c.CommentedEntityId == client.Id);
+                    Mapper.Initialize(cfg => cfg.CreateMap<Comment, CommentDTO>());
+
                     ClientDTO clientData = new ClientDTO()
                     {
                         Id = client.Id,
@@ -82,7 +86,8 @@ namespace CRMProject.BLL.Services
                         Address = client.Address,
                         Description = client.Description,
                         PhoneNumber = client.PhoneNumber,
-                        Site = client.Site
+                        Site = client.Site,
+                        Comments = Mapper.Map<IEnumerable<Comment>, IEnumerable<CommentDTO>>(comments)
                     };
 
                     return clientData;
@@ -129,20 +134,49 @@ namespace CRMProject.BLL.Services
 
         public async Tasks.Task<bool> SetClientData(ClientDTO client)
         {
-            if (client == null)
+            if (client != null)
             {
                 var clientEntity = await Db.Clients.Find(client.Id);
-                clientEntity.Name = client.Name ?? clientEntity.Name;
-                clientEntity.Email = client.Email ?? clientEntity.Email;
-                clientEntity.PhoneNumber = client.PhoneNumber ?? clientEntity.PhoneNumber;
-                clientEntity.Address = client.Address ?? clientEntity.Address;
-                clientEntity.Site = client.Site ?? clientEntity.Site;
-                clientEntity.Description = client.Description ?? clientEntity.Description;
-                await Db.Clients.Update(clientEntity);
+
+                if (clientEntity != null)
+                {
+                    clientEntity.Name = client.Name;
+                    clientEntity.Email = client.Email;
+                    clientEntity.PhoneNumber = client.PhoneNumber;
+                    clientEntity.Address = client.Address;
+                    clientEntity.Site = client.Site;
+                    clientEntity.Description = client.Description;
+                    await Db.Clients.Update(clientEntity);
+                    Db.Save();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public async Tasks.Task<bool> AddComment(int clientId, int typeId, string commentText, int userId)
+        {
+            if (string.IsNullOrEmpty(commentText))
+            {
+                return false;
+            }
+
+            try
+            {
+                Comment comment = new Comment()
+                {
+                    Text = commentText,
+                    CommentedEntityId = clientId,
+                    TypeId = typeId,
+                    User = await Db.Users.Find(userId)
+                };
+
+                await Db.Comments.Create(comment);
                 Db.Save();
                 return true;
             }
-            else
+            catch(Exception ex)
             {
                 return false;
             }

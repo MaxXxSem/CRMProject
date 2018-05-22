@@ -7,6 +7,7 @@ using CRMProject.BLL.Interfaces;
 using CRMProject.DAL.Interfaces;
 using CRMProject.BLL.DTO;
 using CRMProject.DAL.Entities;
+using AutoMapper;
 
 namespace CRMProject.BLL.Services
 {
@@ -58,5 +59,14 @@ namespace CRMProject.BLL.Services
                 return null;
             }
         }
+
+        public async Tasks.Task<IEnumerable<NotificationDTO>> GetUsersNotifications(string userId)
+        {
+            Mapper.Initialize(cfg => cfg.CreateMap<Notification, NotificationDTO>());
+            var notifications = Mapper.Map<IEnumerable<Notification>, IEnumerable<NotificationDTO>>(await Db.Notifications.Get(n => n.User.UserData.Id == userId));                     // get user's notifications
+            return notifications;
+        }
+
+        //TODO: delete notification after appearing
     }
 }

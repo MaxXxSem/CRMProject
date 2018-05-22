@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using CRMProject.BLL.DTO;
 
 namespace CRMProject.BLL.Interfaces
@@ -8,18 +9,18 @@ namespace CRMProject.BLL.Interfaces
     interface ITransactionService
     {
         // get all transactions list
-        IEnumerable<TransactionDTO> GetTransactions();
+        Task<IEnumerable<TransactionDTO>> GetTransactions();
 
         // create new transaction
-        bool AddTransaction(TransactionDTO trans);
+        Task<bool> AddTransaction(TransactionDTO trans);
 
         // get transaction info
-        TransactionDTO GetTransactionData(int id);
+        Task<TransactionDTO> GetTransactionData(int id);
 
         // update transaction info
-        bool SetTransactionData(TransactionDTO trans);
+        Task<bool> SetTransactionData(TransactionDTO trans);
 
         // add comment
-        bool AddComment(int transId, string commentText);
+        Task<bool> AddComment(int transId, int typeId, string commentText, int userId);
     }
 }

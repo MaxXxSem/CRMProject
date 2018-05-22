@@ -37,4 +37,10 @@ namespace CRMProject.DAL.Entities
 
         public virtual User User { get; set; }
     }
+
+    public enum TaskStatus
+    {
+        Opened,
+        Closed
+    }
 }

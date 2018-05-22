@@ -65,6 +65,10 @@ namespace CRMProject.DAL.Entities
                 .Property(e => e.Status)
                 .IsFixedLength();
 
+            modelBuilder.Entity<Transaction>()
+                .Property(e => e.Date)
+                .HasColumnType("datetime2");
+
             modelBuilder.Entity<User>()
                 .Property(e => e.PhotoPath)
                 .IsFixedLength();

@@ -32,5 +32,8 @@ namespace CRMProject.BLL.Interfaces
 
         // send email to client
         Task<bool> SendEmail(Email email);
+
+        // add comment
+        Task<bool> AddComment(int clientId, int typeId, string commentText, int userId);
     }
 }

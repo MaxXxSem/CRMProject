@@ -12,7 +12,9 @@ namespace CRMProject.BLL.DTO
         public string Description { get; set; }
         public decimal Sum { get; set; }
         public string Status { get; set; }
-        public int ClientId { get; set; }
-        public int ResponsibleUserId { get; set; }
+        public int? ClientId { get; set; }
+        public int? ResponsibleUserId { get; set; }
+        public DateTime Date { get; set; }
+        public IEnumerable<CommentDTO> Comments { get; set; }
     }
 }

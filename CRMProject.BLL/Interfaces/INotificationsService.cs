@@ -13,5 +13,8 @@ namespace CRMProject.BLL.Interfaces
 
         // get notification
         Task<NotificationDTO> GetNotification(int id);
+
+        // get user's notifications
+        Task<IEnumerable<NotificationDTO>> GetUsersNotifications(string userId);
     }
 }

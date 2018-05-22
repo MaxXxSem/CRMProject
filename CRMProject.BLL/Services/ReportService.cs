@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Tasks = System.Threading.Tasks;
+using System.Data.Entity;
 using CRMProject.BLL.Interfaces;
 using CRMProject.DAL.Interfaces;
 using CRMProject.BLL.DTO;
@@ -10,7 +11,7 @@ using CRMProject.DAL.Entities;
 
 namespace CRMProject.BLL.Services
 {
-    class ReportService : IReportService
+    public class ReportService : IReportService
     {
         IUnitOfWork Db { get; set; }
 
@@ -58,9 +59,14 @@ namespace CRMProject.BLL.Services
         }
 
         // TODO: add date to transactions entity
-        public Tasks.Task<IEnumerable<TransactionDTO>> GetTransactionsReport()
+        public async Tasks.Task<IEnumerable<TransactionsReportDTO>> GetTransactionsReport()
         {
-            throw new NotImplementedException();
+            // GROUP BY DATE
+            var report = (from trans in await Db.Transactions.GetAll()
+                          group trans by trans.Date into g
+                          select new TransactionsReportDTO() { Date = g.Key, Count = g.Count(), Sum = g.Sum(t => t.Sum) }).ToList();
+
+            return report;
         }
     }
 }

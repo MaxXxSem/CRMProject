@@ -108,6 +108,14 @@
     <Compile Include="Migrations\201804302053425_RolesAdded.Designer.cs">
       <DependentUpon>201804302053425_RolesAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201805141951019_TransactionDateAdded.cs" />
+    <Compile Include="Migrations\201805141951019_TransactionDateAdded.Designer.cs">
+      <DependentUpon>201805141951019_TransactionDateAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201805142004302_TransactionDateAdded1.cs" />
+    <Compile Include="Migrations\201805142004302_TransactionDateAdded1.Designer.cs">
+      <DependentUpon>201805142004302_TransactionDateAdded1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\BaseRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
@@ -131,6 +139,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804302053425_RolesAdded.resx">
       <DependentUpon>201804302053425_RolesAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805141951019_TransactionDateAdded.resx">
+      <DependentUpon>201805141951019_TransactionDateAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201805142004302_TransactionDateAdded1.resx">
+      <DependentUpon>201805142004302_TransactionDateAdded1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
