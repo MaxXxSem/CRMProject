@@ -21,7 +21,7 @@ namespace CRMProject.DAL.Entities
             HireDate = DateTime.UtcNow;
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [Column(TypeName = "datetime2")]

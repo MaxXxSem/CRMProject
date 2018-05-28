@@ -9,6 +9,11 @@ namespace CRMProject.DAL.Entities
     [Table("Task")]
     public partial class Task
     {
+        public Task()
+        {
+            Id = 0;                 // default value
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
@@ -42,5 +47,11 @@ namespace CRMProject.DAL.Entities
     {
         Opened,
         Closed
+    }
+
+    public enum TaskPriority
+    {
+        Normal,
+        Hot
     }
 }

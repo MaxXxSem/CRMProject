@@ -9,6 +9,11 @@ namespace CRMProject.DAL.Entities
     [Table("Contact")]
     public partial class Contact
     {
+        public Contact()
+        {
+            Id = 0;         // default value
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 

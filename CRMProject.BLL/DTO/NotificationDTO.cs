@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CRMProject.BLL.DTO
 {
-    class NotificationDTO
+    public class NotificationDTO
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }

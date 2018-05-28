@@ -12,6 +12,7 @@ namespace CRMProject.DAL.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Transaction()
         {
+            Id = 0;                                     // default value
             Contacts = new HashSet<Contact>();
             Date = DateTime.Now;
         }

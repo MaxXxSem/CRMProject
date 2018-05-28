@@ -21,7 +21,7 @@ namespace CRMProject.BLL.Interfaces
         Task<bool> SetTaskData(TaskDTO task);
 
         // get expiration
-        Task<DateTime> GetExpiration(int id);
+        Task<TimeSpan> GetExpiration(int id);
 
         // close task
         Task<bool> CloseTask(int id);

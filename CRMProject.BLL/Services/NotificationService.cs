@@ -11,7 +11,7 @@ using AutoMapper;
 
 namespace CRMProject.BLL.Services
 {
-    class NotificationService : INotificationsService
+    public class NotificationService : INotificationsService
     {
         IUnitOfWork Db { get; set; }
 

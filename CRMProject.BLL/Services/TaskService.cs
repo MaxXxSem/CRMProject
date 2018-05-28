@@ -11,7 +11,7 @@ using AutoMapper;
 
 namespace CRMProject.BLL.Services
 {
-    class TaskService : ITaskService
+    public class TaskService : ITaskService
     {
         IUnitOfWork Db { get; set; }
 
@@ -51,7 +51,6 @@ namespace CRMProject.BLL.Services
             }
         }
 
-        // TODO: Comments
         public async Tasks.Task<TaskDTO> GetTaskData(int id)
         {
             var task = await Db.Tasks.Find(id);
@@ -100,15 +99,15 @@ namespace CRMProject.BLL.Services
             return false;
         }
 
-        public async Tasks.Task<DateTime> GetExpiration(int id)
+        public async Tasks.Task<TimeSpan> GetExpiration(int id)
         {
             var task = await Db.Tasks.Find(id);
             if (task != null)
             {
-                return task.Date;
+                return DateTime.Now - task.Date;
             }
 
-            return DateTime.MinValue;           // if there is no task - return DateTime.MinValue
+            return TimeSpan.Zero;           // if there is no task - return DateTime.MinValue
         }
 
         public async Tasks.Task<bool> CloseTask(int id)
@@ -118,6 +117,7 @@ namespace CRMProject.BLL.Services
             if (task != null)
             {
                 task.Status = TaskStatus.Closed.ToString();         // set status to Closed
+                return true;
             }
 
             return false;

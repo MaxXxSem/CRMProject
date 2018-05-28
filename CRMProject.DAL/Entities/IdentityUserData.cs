@@ -28,7 +28,6 @@ namespace CRMProject.DAL.Entities
         public bool EmailConfirmed { get; set; }
 
         [Required]
-        [StringLength(64)]
         public string PasswordHash { get; set; }
 
         [Required]

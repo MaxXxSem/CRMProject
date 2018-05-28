@@ -9,7 +9,7 @@ namespace CRMProject.DAL.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(CRMProject.DAL.Entities.CRMEntities context)

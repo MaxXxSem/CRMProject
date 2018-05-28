@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CRMProject.BLL.DTO
 {
-    class TaskDTO
+    public class TaskDTO
     {
         public int Id { get; set; }
         public string Title { get; set; }

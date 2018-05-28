@@ -58,7 +58,6 @@ namespace CRMProject.BLL.Services
             return null;
         }
 
-        // TODO: add date to transactions entity
         public async Tasks.Task<IEnumerable<TransactionsReportDTO>> GetTransactionsReport()
         {
             // GROUP BY DATE

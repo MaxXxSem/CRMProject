@@ -11,7 +11,7 @@ using AutoMapper;
 
 namespace CRMProject.BLL.Services
 {
-    class TransactionService : ITransactionService
+    public class TransactionService : ITransactionService
     {
         IUnitOfWork Db { get; set; }
 
@@ -29,10 +29,14 @@ namespace CRMProject.BLL.Services
                     Description = trans.Description,
                     Date = trans.Date,
                     Sum = trans.Sum,
-                    Status = trans.Status,
-                    Client = await Db.Clients.Find(trans.ClientId.Value),
-                    User = await Db.Users.Find(trans.ResponsibleUserId.Value)
+                    Status = trans.Status
                 };
+
+                if (trans.ClientId.HasValue)
+                    transaction.Client = await Db.Clients.Find(trans.ClientId.Value);
+
+                if (trans.ResponsibleUserId.HasValue)
+                    transaction.User = await Db.Users.Find(trans.ResponsibleUserId.Value);
 
                 await Db.Transactions.Create(transaction);
                 Db.Save();
@@ -50,7 +54,6 @@ namespace CRMProject.BLL.Services
             return transactionsDTO;
         }
 
-        // TODO: Comments
         public async Tasks.Task<TransactionDTO> GetTransactionData(int id)
         {
             var transaction = await Db.Transactions.Find(id);
@@ -90,8 +93,11 @@ namespace CRMProject.BLL.Services
                     transEntity.Description = trans.Description;
                     transEntity.Sum = trans.Sum;
                     transEntity.Status = trans.Status;
-                    transEntity.Client = await Db.Clients.Find(trans.ClientId.Value);
-                    transEntity.User = await Db.Users.Find(trans.ResponsibleUserId.Value);
+                    if (trans.ClientId.HasValue)
+                        transEntity.Client = await Db.Clients.Find(trans.ClientId.Value);
+
+                    if (trans.ResponsibleUserId.HasValue)
+                        transEntity.User = await Db.Users.Find(trans.ResponsibleUserId.Value);
 
                     await Db.Transactions.Update(transEntity);
                     Db.Save();

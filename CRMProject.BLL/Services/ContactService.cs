@@ -59,7 +59,6 @@ namespace CRMProject.BLL.Services
             }
         }
 
-        // TODO: Comments
         public async Tasks.Task<ContactDTO> GetContactData(int id)
         {
             var contact = await Db.Contacts.Find(id);
@@ -109,7 +108,6 @@ namespace CRMProject.BLL.Services
             return false;
         }
 
-        // TODO: Comments
         public async Tasks.Task<IEnumerable<ContactDTO>> GetContacts()
         {
             var contacts = await Db.Contacts.GetAll();

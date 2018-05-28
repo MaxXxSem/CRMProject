@@ -29,8 +29,9 @@ namespace CRMProject.BLL.Services
                 user = new IdentityUserData()                                               // create new user
                 {
                     Email = userData.Email,
-                    EmailConfirmed = false,
-                    UserName = userData.UserName
+                    EmailConfirmed = true,
+                    UserName = userData.UserName,
+                    PasswordHash = userData.Password
                 };
 
                 var result = await Db.UserManager.CreateAsync(user, userData.Password);

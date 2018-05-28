@@ -67,7 +67,6 @@ namespace CRMProject.BLL.Services
             }
         }
 
-        // TODO: Comments
         public async Tasks.Task<ClientDTO> GetClientData(int id)
         {
             try
