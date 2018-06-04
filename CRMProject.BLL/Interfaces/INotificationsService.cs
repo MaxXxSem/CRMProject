@@ -6,7 +6,7 @@ using CRMProject.BLL.DTO;
 namespace CRMProject.BLL.Interfaces
 {
     // notifications operations
-    interface INotificationsService
+    public interface INotificationsService
     {
         // create new notifications
         Task<bool> AddNotification(NotificationDTO notification);

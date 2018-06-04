@@ -6,7 +6,7 @@ using CRMProject.BLL.DTO;
 namespace CRMProject.BLL.Interfaces
 {
     // Reports class
-    interface IReportService
+    public interface IReportService
     {
         // get report related with managers
         Task<IEnumerable<ManagersReportDTO>> GetManagersReport();

@@ -6,7 +6,7 @@ using CRMProject.BLL.DTO;
 namespace CRMProject.BLL.Interfaces
 {
     // transaction operations
-    interface ITransactionService
+    public interface ITransactionService
     {
         // get all transactions list
         Task<IEnumerable<TransactionDTO>> GetTransactions();

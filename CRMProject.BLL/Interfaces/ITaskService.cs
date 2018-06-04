@@ -6,7 +6,7 @@ using CRMProject.BLL.DTO;
 namespace CRMProject.BLL.Interfaces
 {
     // task operations
-    interface ITaskService
+    public interface ITaskService
     {
         // get all tasks list
         Task<IEnumerable<TaskDTO>> GetUsersTasks(string userId);

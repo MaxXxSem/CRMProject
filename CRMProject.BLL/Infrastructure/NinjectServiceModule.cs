@@ -9,7 +9,7 @@ using CRMProject.DAL.Repositories;
 
 namespace CRMProject.BLL.Infrastructure
 {
-    class NinjectServiceModule : NinjectModule
+    public class NinjectServiceModule : NinjectModule
     {
         public override void Load()
         {
