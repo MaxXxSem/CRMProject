@@ -103,6 +103,7 @@ namespace CRMProject.BLL.Services
         public async Tasks.Task<IEnumerable<ClientDTO>> GetClients()
         {
             IEnumerable<Client> clients = await Db.Clients.GetAll();
+            Mapper.Reset();
             Mapper.Initialize(cfg => cfg.CreateMap<Client, ClientDTO>());
             var clientsDTO = Mapper.Map<IEnumerable<Client>, IEnumerable<ClientDTO>>(clients);
             return clientsDTO;

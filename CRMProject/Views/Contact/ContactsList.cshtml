@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "ContactsList";
+}
+
+@using CRMProject.Models.ViewModels
+@model IEnumerable<ContactBasicViewModel>
+
+<div class="container">
+    <div class="header-panel">
+        <h2>Contacts</h2>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Client</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var contact in Model)
+            {
+                <tr>
+                    <td>@contact.Name</td>
+                    <td>@contact.ClientName</td>
+                    <td>@contact.Email</td>
+                    <td>@contact.PhoneNumber</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

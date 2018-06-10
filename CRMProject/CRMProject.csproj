@@ -190,10 +190,22 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClientController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\AddClientViewModel.cs" />
+    <Compile Include="Models\ViewModels\ClientBasicViewModel.cs" />
+    <Compile Include="Models\ViewModels\ContactBasicViewModel.cs" />
+    <Compile Include="Models\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Models\ViewModels\TaskBasicViewModel.cs" />
+    <Compile Include="Models\ViewModels\AddTaskViewModel.cs" />
+    <Compile Include="Models\ViewModels\TransactionBasicViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\BLLServicesModule.cs" />
   </ItemGroup>
@@ -281,11 +293,17 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Task\TasksList.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Transaction\TransactionsList.cshtml" />
+    <Content Include="Views\Contact\ContactsList.cshtml" />
+    <Content Include="Views\Client\ClientsList.cshtml" />
+    <Content Include="Views\Task\AddTask.cshtml" />
+    <Content Include="Views\Client\AddClient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\img\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

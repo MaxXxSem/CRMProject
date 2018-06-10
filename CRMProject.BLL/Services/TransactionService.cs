@@ -48,9 +48,40 @@ namespace CRMProject.BLL.Services
 
         public async Tasks.Task<IEnumerable<TransactionDTO>> GetTransactions()
         {
-            IEnumerable<Transaction> transactions = await Db.Transactions.GetAll();
-            Mapper.Initialize(cfg => cfg.CreateMap<Transaction, TransactionDTO>());
-            var transactionsDTO = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionDTO>>(transactions);
+            //IEnumerable<Transaction> transactions = await Db.Transactions.GetAll();
+            //Mapper.Initialize(cfg => cfg.CreateMap<Transaction, TransactionDTO>());
+            //var transactionsDTO = Mapper.Map<IEnumerable<Transaction>, IEnumerable<TransactionDTO>>(transactions);
+            var transactions = await Db.Transactions.GetAll();
+            List<TransactionDTO> transactionsDTO = new List<TransactionDTO>();
+            if (transactions != null && transactions.Count() > 0)
+            {
+                foreach (var trans in transactions)
+                {
+                    TransactionDTO transDTO = new TransactionDTO()
+                    {
+                        Id = trans.Id,
+                        Date = trans.Date,
+                        Status = trans.Status,
+                        Description = trans.Description,
+                        Sum = trans.Sum,
+                        ResponsibleUserId = trans.ResponsibleUserId,
+                        ClientId = trans.ClientId
+                    };
+
+                    if (transDTO.ResponsibleUserId.HasValue)
+                    {
+                        transDTO.ResponsibleUserName = (await Db.Users.Find(transDTO.ResponsibleUserId.Value)).UserData.UserName;
+                    }
+
+                    if (transDTO.ClientId.HasValue)
+                    {
+                        transDTO.ClientName = (await Db.Clients.Find(transDTO.ClientId.Value)).Name;
+                    }
+
+                    transactionsDTO.Add(transDTO);
+                }
+            }
+
             return transactionsDTO;
         }
 

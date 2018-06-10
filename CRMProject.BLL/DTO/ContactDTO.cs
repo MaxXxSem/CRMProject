@@ -14,6 +14,7 @@ namespace CRMProject.BLL.DTO
         public string PhoneNumber { get; set; }
         public string Desctiption { get; set; }
         public int? ClientId { get; set; }
+        public string ClientName { get; set; }
         public int? TransactionId { get; set; }
         public IEnumerable<CommentDTO> Comments { get; set; }
     }

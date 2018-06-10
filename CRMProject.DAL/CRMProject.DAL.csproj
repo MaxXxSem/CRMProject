@@ -83,6 +83,7 @@
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Contact.cs" />
     <Compile Include="Entities\CRMEntities.cs" />
+    <Compile Include="Entities\EntityPopularityStat.cs" />
     <Compile Include="Entities\Notification.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Task.cs" />

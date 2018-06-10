@@ -10,6 +10,7 @@ using CRMProject.BLL.Infrastructure;
 using CRMProject.Util;
 using Ninject;
 using Ninject.Web.Mvc;
+using Ninject.Syntax;
 
 namespace CRMProject
 {
@@ -25,6 +26,7 @@ namespace CRMProject
             NinjectModule uowModule = new NinjectServiceModule();
             NinjectModule servicesModule = new BLLServicesModule();
             var kernel = new StandardKernel(uowModule, servicesModule);
+            kernel.Unbind<ModelValidatorProvider>();                                            // disable Ninject model validator
             DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
         }
     }

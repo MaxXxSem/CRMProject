@@ -110,9 +110,35 @@ namespace CRMProject.BLL.Services
 
         public async Tasks.Task<IEnumerable<ContactDTO>> GetContacts()
         {
+            //var contacts = await Db.Contacts.GetAll();
+            //Mapper.Initialize(cfg => cfg.CreateMap<Contact, ContactDTO>());
+            //var contactsDTO = Mapper.Map<IEnumerable<Contact>, IEnumerable<ContactDTO>>(contacts);
             var contacts = await Db.Contacts.GetAll();
-            Mapper.Initialize(cfg => cfg.CreateMap<Contact, ContactDTO>());
-            var contactsDTO = Mapper.Map<IEnumerable<Contact>, IEnumerable<ContactDTO>>(contacts);
+            List<ContactDTO> contactsDTO = new List<ContactDTO>();
+            if (contacts != null && contacts.Count() > 0)
+            {
+                foreach (var contact in contacts)
+                {
+                    ContactDTO contactDTO = new ContactDTO()
+                    {
+                        Id = contact.Id,
+                        Name = contact.Name,
+                        Email = contact.Email,
+                        Desctiption = contact.Description,
+                        PhoneNumber = contact.PhoneNumber,
+                        ClientId = contact.ClientId,
+                        TransactionId = contact.TransactionId
+                    };
+
+                    if (contactDTO.ClientId.HasValue)
+                    {
+                        contactDTO.ClientName = (await Db.Clients.Find(contactDTO.ClientId.Value)).Name;
+                    }
+
+                    contactsDTO.Add(contactDTO);
+                }
+            }
+
             return contactsDTO;
         }
 

@@ -21,6 +21,7 @@ namespace CRMProject.DAL.Entities
         public virtual DbSet<Transaction> Transactions { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<IdentityUserData> UserData { get; set; }
+        //public virtual DbSet<EntityPopularityStat> EntityPopularityStats { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

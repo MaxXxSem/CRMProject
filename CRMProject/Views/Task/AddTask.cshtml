@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "AddTask";
+}
+@using CRMProject.Models.ViewModels
+@model AddTaskViewModel
+
+<div class="container">
+    @using (Html.BeginForm("AddTask", "Task", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Title, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Date, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(m => m.Date, new { type = "datetime-local", @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Priority, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DropDownList("Priority", ViewBag.Priority as SelectList, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.ResponsibleUserId, new { @class = "col-md-2 control-label" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(m => m.ResponsibleUserId, ViewBag.Users as SelectList, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Ok" />
+            </div>
+        </div>
+    }
+</div>
+

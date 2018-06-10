@@ -21,6 +21,7 @@ namespace CRMProject.DAL.Repositories
         private IRepository<Transaction> transactions;
         private IRepository<User> users;
         private IRepository<IdentityUserData> usersData;
+        //private IRepository<EntityPopularityStat> entitiesStat;
         private IdentityUserManager userManager;
         private IdentityRoleManager roleManager;
 
@@ -118,6 +119,16 @@ namespace CRMProject.DAL.Repositories
                 return usersData;
             }
         }
+
+        //public IRepository<EntityPopularityStat> EntitiesStat
+        //{
+        //    get
+        //    {
+        //        if (entitiesStat == null)
+        //            entitiesStat = new BaseRepository<EntityPopularityStat>(db);
+        //        return entitiesStat;
+        //    }
+        //}
 
         public IdentityUserManager UserManager
         {

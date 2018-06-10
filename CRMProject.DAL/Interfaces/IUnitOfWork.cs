@@ -17,6 +17,7 @@ namespace CRMProject.DAL.Interfaces
         IRepository<Transaction> Transactions { get; }
         IRepository<User> Users { get; }
         IRepository<IdentityUserData> UsersData { get; }
+        //IRepository<EntityPopularityStat> EntitiesStat { get; }
         IdentityUserManager UserManager { get; }
         IdentityRoleManager RoleManager { get; }
 

@@ -8,6 +8,8 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jquery")
+    @RenderSection("Scripts", false)
+    @RenderSection("Styles", false)
     <link href="~/Content/css/layout.css" rel="stylesheet" />
     <script src="~/Scripts/userScripts/layout.js"></script>
 </head>
@@ -30,7 +32,7 @@
                         <a class="nav-link text-white" href="#">Notifications</a>
                     </li>
                     <li class="nav-item highlighted">
-                        <a class="nav-link text-white" href="#">Log Out</a>
+                        <a class="nav-link text-white" href="/Account/SignOut">Log Out</a>
                     </li>
                 </ul>
             </div>
@@ -47,22 +49,22 @@
                 <!-- Sidebar Links -->
                 <ul class="list-unstyled components">
                     <li>
-                        <a href="#">
+                        <a href="/Transaction/TransactionsList">
                             Transactions
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/Client/ClientsList">
                             <i class="glyphicon glyphicon-briefcase"></i>Clients
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/Contact/ContactsList">
                             <i class="glyphicon glyphicon-link"></i>Contacts
                         </a>
                     </li>
                     <li>
-                        <a href="#">
+                        <a href="/Task/TasksList">
                             <i class="glyphicon glyphicon-send"></i>Tasks
                         </a>
                     </li>

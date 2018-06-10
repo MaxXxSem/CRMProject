@@ -69,7 +69,7 @@ namespace CRMProject.BLL.Services
         {
             try
             {
-                var user = Db.UserManager.Find(userData.Login, userData.Password);
+                var user = Db.UserManager.Find(userData.Login, userData.Password);          // CAN'T FIND USER
                 ClaimsIdentity claim = null;
                 claim = Db.UserManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
                 return Tasks.Task.FromResult(claim);

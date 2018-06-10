@@ -22,9 +22,35 @@ namespace CRMProject.BLL.Services
 
         public async Tasks.Task<IEnumerable<TaskDTO>> GetUsersTasks(string userId)
         {
-            Mapper.Initialize(cfg => cfg.CreateMap<Task, TaskDTO>());
-            var tasks = Mapper.Map<IEnumerable<Task>, IEnumerable<TaskDTO>>(await Db.Tasks.Get(t => t.User.UserData.Id == userId && t.Status == TaskStatus.Opened.ToString()));     // get user's tasks
-            return tasks;
+            //Mapper.Initialize(cfg => cfg.CreateMap<Task, TaskDTO>());
+            //var tasks = Mapper.Map<IEnumerable<Task>, IEnumerable<TaskDTO>>(await Db.Tasks.Get(t => t.User.UserData.Id == userId && t.Status == TaskStatus.Opened.ToString()));     // get user's tasks
+            var tasks = await Db.Tasks.Get(t => t.User.UserData.Id == userId && t.Status == TaskStatus.Opened.ToString());
+            List<TaskDTO> tasksDTO = new List<TaskDTO>();
+            if (tasks != null && tasks.Count() > 0)
+            {
+                foreach (var task in tasks)
+                {
+                    TaskDTO taskDTO = new TaskDTO()
+                    {
+                        Id = task.Id,
+                        Date = task.Date,
+                        Description = task.Description,
+                        Priority = task.Priority,
+                        Status = task.Status,
+                        Title = task.Title,
+                        ResponsibleUserId = task.ResponsibleUserId
+                    };
+
+                    if (taskDTO.ResponsibleUserId.HasValue)
+                    {
+                        taskDTO.ResponsibleUserName = (await Db.Users.Find(taskDTO.ResponsibleUserId.Value)).UserData.UserName;
+                    }
+
+                    tasksDTO.Add(taskDTO);
+                }
+            }
+
+            return tasksDTO;
         }
 
         public async Tasks.Task<bool> AddTask(TaskDTO task)
@@ -67,6 +93,7 @@ namespace CRMProject.BLL.Services
                     Priority = task.Priority,
                     Status = task.Status,
                     Description = task.Description,
+                    ResponsibleUserId = task.ResponsibleUserId,
                     Comments = Mapper.Map<IEnumerable<Comment>, IEnumerable<CommentDTO>>(comments)
                 };
 
@@ -121,6 +148,17 @@ namespace CRMProject.BLL.Services
             }
 
             return false;
+        }
+
+        public async Tasks.Task<IEnumerable<UserDTO>> GetUsers()
+        {
+            IEnumerable<User> users = await Db.Users.GetAll();
+            Mapper.Reset();
+            Mapper.Initialize(cfg => cfg.CreateMap<User, UserDTO>()
+                .ForMember("Id", opt => opt.MapFrom(u => u.Id))
+                .ForMember("UserName", opt => opt.MapFrom(u => u.UserData.UserName)));
+            var usersDTO = Mapper.Map<IEnumerable<User>, IEnumerable<UserDTO>>(users);
+            return usersDTO;
         }
 
         public async Tasks.Task<bool> AddComment(int taskId, int typeId, string commentText, int userId)

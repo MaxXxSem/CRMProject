@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "TransactionsList";
+}
+
+@using CRMProject.Models.ViewModels
+@model IEnumerable<TransactionBasicViewModel>
+
+<div class="container">
+    <div class="header-panel">
+        <h2>Transactions</h2>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Client</th>
+                <th>Responsible</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Sum</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var trans in Model)
+            {
+                <tr>
+                    <td>@trans.ClientName</td>
+                    <td>@trans.ResponsibleUserName</td>
+                    <td>@trans.Date</td>
+                    <td>@trans.Description</td>
+                    <td>@trans.Sum</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

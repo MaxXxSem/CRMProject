@@ -26,6 +26,9 @@ namespace CRMProject.BLL.Interfaces
         // close task
         Task<bool> CloseTask(int id);
 
+        // for choosing responsible user
+        Task<IEnumerable<UserDTO>> GetUsers();
+
         // add comment
         Task<bool> AddComment(int taskId, int typeId, string commentText, int userId);
     }
